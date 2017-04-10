@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <link rel="icon" href="data:;base64,=" />
+    <style type="text/css">
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        ul > li{
+            height: 40px;
+            line-height: 40px;
+            font-size: 18px;
+            color: #666;
+            border-bottom: 1px solid #F0F0F0;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li class="get">GET</li>
+    <li class="post">POST</li>
+    <li class="share">Share</li>
+    <li class="coinToast">Coin Toast</li>
+    <li class="toast">Toast</li>
+    <li class="openwebview">Open Baidu</li>
+    <li class="opendeeplink">Open a Article</li>
+</ul>
+<script type="text/javascript" src="JSBridge.js?_=2"></script>
+<script type="text/javascript">
+    NDB(function(){
+        $(".get").on("click",function(){
+            NDB.get('http://api.newsdog.today/v1/apps/screen/',{"_" : new Date().getTime()},function(d){
+                console.log("get result", d);
+            });
+        });
+        $(".post").on("click",function(){
+            NDB.post('http://api.newsdog.today/v1/apps/screen/',{"_" : new Date().getTime()},function(d){
+                console.log("post result", d);
+            });
+        });
+        $(".share").on("click",function(){
+            NDB.share({platform : "fb", text : "share text",image:"https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png"},function(d){
+                console.log("share callback", d);
+            });
+        });
+        $(".coinToast").on("click",function(){
+            NDB.coinToast({
+                msg: "签到成功",
+                coin: 10
+            },function(d){
+                console.log("coinToast callback", d);
+            });
+        });
+        $(".toast").on("click",function(){
+            NDB.toast({
+                msg: "签到成功",
+                long : true
+            },function(d){
+                console.log("toast callback", d);
+            });
+        });
+        $(".openwebview").on("click",function(){
+            NDB.openAWebview({
+                url: "http://www.baidu.com",
+            },function(d){
+                console.log("openwebview callback", d);
+            });
+        });
+        $(".opendeeplink").on("click",function(){
+            NDB.openADeepLink({
+                url: "newsdog://detail?id=58bca0fd1290713133ddbd1b&type=article&lang=en",
+            },function(d){
+                console.log("opendeeplink callback", d);
+            });
+        });
+
+    })
+</script>
+</body>
+</html>
